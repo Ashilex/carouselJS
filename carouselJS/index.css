@@ -247,8 +247,14 @@
     animation: bump 0.2s ease;
 }
 
+@media (max-width:960px){
+    .carousel-library div{
+        height: 400px;
+        width: 95vw;
+    }
+}
 
-@media (max-width:961px){
+@media (max-width:480px){
     .carousel-library .carousel-container{
         border-radius: 30px;
     }
