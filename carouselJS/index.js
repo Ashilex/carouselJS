@@ -1,6 +1,6 @@
 function createCarousel(srcArr) {
 
-  //create html elements needed
+  // Create html elements needed
   const libraryEntryPoint = document.getElementsByClassName('carousel-library')[0]
   let carouselExternal = document.createElement('div')
   carouselExternal.classList.add('carousel-external')
@@ -33,9 +33,13 @@ function createCarousel(srcArr) {
   arrowsDiv.className = 'arrows';
   const leftArrowImg = document.createElement('img')
   leftArrowImg.src = 'carouselJS/static/left-arrow.png'
+  const playButton = document.createElement('img')
+  playButton.classList.add('play')
+  playButton.src = 'carouselJS/static/play.png'
   const rightArrowImg = document.createElement('img')
   rightArrowImg.src = 'carouselJS/static/right-arrow.png'
   arrowsDiv.appendChild(leftArrowImg);
+  arrowsDiv.appendChild(playButton)
   arrowsDiv.appendChild(rightArrowImg);
   libraryEntryPoint.appendChild(arrowsDiv);
 
@@ -97,7 +101,7 @@ function createCarousel(srcArr) {
         next = "c1";
         break;
       default:
-        next = null; // Handle other cases if needed
+        next = null;
         break;
     }
     return next;
@@ -133,9 +137,34 @@ function createCarousel(srcArr) {
   }
 
 
+  // PLAY FUNCTIONALITY
+  let playing = false
+  let skipInterval;
+  function play(){
+    skipInterval = setInterval(()=>{
+      moveSlide('next')
+    },2000)
+  }
+
+  function stop(){
+    clearInterval(skipInterval)
+  }
+
+  playButton.addEventListener('click', function() {
+    if (playing) {
+      stop()
+      playButton.src = 'carouselJS/static/play.png'
+    } else {
+      play()
+      playButton.src = 'carouselJS/static/stop.png'
+    }
+    playing = !playing;
+  });
+
+
+
 
   function fastForward(numOfSkip){
-
     let slides = document.querySelectorAll('.slide')
     slides.forEach(s=>{
       s.classList.add('ff')
@@ -152,7 +181,6 @@ function createCarousel(srcArr) {
       }
     }, 110);
 
-
     setTimeout(function() {
       for (let i = 1; i <= 5; i++) {
         let img = document.querySelector(`.c${i} img`)
@@ -167,9 +195,7 @@ function createCarousel(srcArr) {
         s.classList.remove('ff')
       })
       clearInterval(intervalId);
-
     }, 110*Math.abs(numOfSkip));
-
   }
 
 

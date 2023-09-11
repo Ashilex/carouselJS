@@ -247,6 +247,11 @@
     animation: bump 0.2s ease;
 }
 
+.play{
+    margin-left: 16px;
+    margin-right: 11px;
+}
+
 @media (max-width:960px){
     .carousel-library div{
         height: 400px;
