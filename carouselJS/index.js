@@ -158,9 +158,7 @@ function createCarousel(srcArr) {
         let img = document.querySelector(`.c${i} img`)
 
         let valueSrc = (carouselCenter-3+i) >= 0 ? (carouselCenter-3+i)%srcArr.length : srcArr.length+(carouselCenter-3+i)%srcArr.length
-        console.log(valueSrc, srcArr[valueSrc], `.c${i} img`)
         img.addEventListener('load', (e)=>{
-          console.log('ha caricato');
           e.target.parentElement.classList.remove('blur')
         })
         img.src = srcArr[valueSrc]
@@ -221,33 +219,31 @@ function createCarousel(srcArr) {
   }
   carouselContainer.addEventListener('swipeStart', e => {
     touchstartX = e.detail.changedTouches[0].screenX
-    console.log('preso')
   })
 
   carouselContainer.addEventListener('swipeEnd', e => {
     touchendX = e.detail.changedTouches[0].screenX
-    console.log('presa la fine')
     checkDirection()
   })
 
   hoverRight.addEventListener('touchstart', e=> {
-    const customEvent = new CustomEvent('swipeStart', { detail: e });
-    carouselContainer.dispatchEvent(customEvent)
+    dispatchCustomEvent('swipeStart', e)
   })
 
   hoverRight.addEventListener('touchend', e=> {
-    const customEvent = new CustomEvent('swipeEnd', { detail: e });
-    carouselContainer.dispatchEvent(customEvent)
+    dispatchCustomEvent('swipeEnd', e)
   })
   hoverLeft.addEventListener('touchstart', e=> {
-    const customEvent = new CustomEvent('swipeStart', { detail: e });
-    carouselContainer.dispatchEvent(customEvent)
+    dispatchCustomEvent('swipeStart', e)
   })
 
   hoverLeft.addEventListener('touchend', e=> {
-    const customEvent = new CustomEvent('swipeEnd', { detail: e });
-    carouselContainer.dispatchEvent(customEvent)
+    dispatchCustomEvent('swipeEnd', e)
   })
 
+  function dispatchCustomEvent(customEventName, realEvent){
+    const customEvent = new CustomEvent(customEventName, { detail: realEvent });
+    carouselContainer.dispatchEvent(customEvent)
+  }
 
 }
