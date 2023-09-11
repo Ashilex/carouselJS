@@ -247,3 +247,22 @@
     animation: bump 0.2s ease;
 }
 
+
+@media (max-width:961px){
+    .carousel-library .carousel-container{
+        border-radius: 30px;
+    }
+
+    .carousel-library div{
+        height: 150px;
+        width: 95vw;
+    }
+
+    .carousel-library .c2 {
+        left: -6%;
+    }
+
+    .carousel-library .c4 {
+        left: 105%;
+    }
+}

@@ -165,7 +165,9 @@ function createCarousel(srcArr) {
         })
         img.src = srcArr[valueSrc]
       }
-      console.log('clear it')
+      slides.forEach(s=>{
+        s.classList.remove('ff')
+      })
       clearInterval(intervalId);
 
     }, 110*Math.abs(numOfSkip));
@@ -176,7 +178,7 @@ function createCarousel(srcArr) {
 
   function pallinoClickHandler(event) {
     event.stopPropagation()
-    console.log('event',event.currentTarget)
+    if (event.target == palliniContainer) return
     const prevCarouselCenter = carouselCenter
     const pallinoSelezionato = event.target
     const pallinoSelectedNum = parseInt(pallinoSelezionato.getAttribute('data-key'))
