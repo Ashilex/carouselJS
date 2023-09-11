@@ -210,4 +210,42 @@ function createCarousel(srcArr) {
 
   palliniContainer.addEventListener('click', pallinoClickHandler)
 
+  let touchstartX = 0
+  let touchendX = 0
+
+  function checkDirection() {
+    if (touchendX < touchstartX) moveSlide('next')
+    if (touchendX > touchstartX) moveSlide('prev')
+  }
+  carouselContainer.addEventListener('swipeStart', e => {
+    touchstartX = e.detail.changedTouches[0].screenX
+    console.log('preso')
+  })
+
+  carouselContainer.addEventListener('swipeEnd', e => {
+    touchendX = e.detail.changedTouches[0].screenX
+    console.log('presa la fine')
+    checkDirection()
+  })
+
+  hoverRight.addEventListener('touchstart', e=> {
+    const customEvent = new CustomEvent('swipeStart', { detail: e });
+    carouselContainer.dispatchEvent(customEvent)
+  })
+
+  hoverRight.addEventListener('touchend', e=> {
+    const customEvent = new CustomEvent('swipeEnd', { detail: e });
+    carouselContainer.dispatchEvent(customEvent)
+  })
+  hoverLeft.addEventListener('touchstart', e=> {
+    const customEvent = new CustomEvent('swipeStart', { detail: e });
+    carouselContainer.dispatchEvent(customEvent)
+  })
+
+  hoverLeft.addEventListener('touchend', e=> {
+    const customEvent = new CustomEvent('swipeEnd', { detail: e });
+    carouselContainer.dispatchEvent(customEvent)
+  })
+
+
 }
